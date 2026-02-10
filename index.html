@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mostajo Gobernador 2026 | Ingeniería para el Futuro</title>
+    
+    <!-- Fonts: Archivo (Powerful Display) & Inter (Modern UI) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons & Animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        mts: {
+                            green: '#004d2c',    /* Verde bosque profundo */
+                            accent: '#8c5a3c',   /* Café/Cobre sofisticado */
+                            gold: '#d9a162',     /* Acento dorado suave */
+                            surface: '#fcfaf7',  /* Fondo crema muy suave */
+                            dark: '#0f1712',     /* Negro verdoso */
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Archivo', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { font-feature-settings: "cv02", "cv03", "cv04", "ss01"; }
+        
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #004d2c, #8c5a3c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .engineering-grid {
+            background-image: 
+                linear-gradient(rgba(0, 77, 44, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 77, 44, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .trapezoid-right {
+            clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+        }
+
+        .blob {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(140, 90, 60, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+        @media (min-width: 768px) {
+            .blob { width: 500px; height: 500px; }
+        }
+
+        /* Hover effects */
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .mobile-menu.open {
+            max-height: 400px;
+        }
+
+        /* Marquee animation */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            animation: marquee 22s linear infinite;
+        }
+    </style>
+</head>
+<body class="font-body text-mts-dark bg-mts-surface selection:bg-mts-accent selection:text-white overflow-x-hidden">
+
+    <!-- Header / Nav -->
+    <nav class="fixed top-0 w-full z-[100] transition-all duration-500 glass-nav border-b border-mts-accent/10">
+        <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 h-16 sm:h-20 lg:h-24 flex justify-between items-center">
+            <div class="flex items-center gap-2 sm:gap-4">
+                <div class="w-10 h-10 sm:w-12 sm:h-12 bg-mts-green rounded-xl flex items-center justify-center text-white font-bold text-base sm:text-xl transform rotate-3">
+                    MTS
+                </div>
+                <div class="leading-none">
+                    <span class="block font-display font-black text-lg sm:text-2xl tracking-tighter text-mts-green uppercase">MOSTAJO</span>
+                    <span class="text-[9px] sm:text-[10px] font-bold tracking-[0.15em] sm:tracking-[0.2em] text-mts-accent uppercase">Gobernador 2026</span>
+                </div>
+            </div>
+
+            <div class="hidden lg:flex items-center gap-10">
+                <a href="#inicio" class="text-xs font-bold uppercase tracking-widest hover:text-mts-accent transition">Inicio</a>
+                <a href="#perfil" class="text-xs font-bold uppercase tracking-widest hover:text-mts-accent transition">Perfil</a>
+                <a href="#propuestas" class="text-xs font-bold uppercase tracking-widest hover:text-mts-accent transition">Proyecto</a>
+                <a href="#redes" class="text-xs font-bold uppercase tracking-widest hover:text-mts-accent transition">Redes</a>
+                <a href="https://wa.me/591" class="bg-mts-green text-white px-8 py-4 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-mts-dark transition shadow-xl">
+                    Participar
+                </a>
+            </div>
+
+            <button class="lg:hidden text-2xl w-10 h-10 flex items-center justify-center" id="menuToggle" aria-label="Menú">
+                <i class="fas fa-bars-staggered" id="menuIcon"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="mobile-menu lg:hidden" id="mobileMenu">
+            <div class="px-4 sm:px-6 pb-6 pt-2 flex flex-col gap-1 bg-white/95 backdrop-blur-xl border-t border-mts-accent/10">
+                <a href="#inicio" class="mobile-link py-3 px-4 text-sm font-bold uppercase tracking-widest hover:text-mts-accent hover:bg-mts-green/5 rounded-xl transition">Inicio</a>
+                <a href="#perfil" class="mobile-link py-3 px-4 text-sm font-bold uppercase tracking-widest hover:text-mts-accent hover:bg-mts-green/5 rounded-xl transition">Perfil</a>
+                <a href="#propuestas" class="mobile-link py-3 px-4 text-sm font-bold uppercase tracking-widest hover:text-mts-accent hover:bg-mts-green/5 rounded-xl transition">Proyecto</a>
+                <a href="#redes" class="mobile-link py-3 px-4 text-sm font-bold uppercase tracking-widest hover:text-mts-accent hover:bg-mts-green/5 rounded-xl transition">Redes</a>
+                <a href="https://wa.me/591" class="mt-2 bg-mts-green text-white py-3.5 rounded-xl text-sm font-bold uppercase tracking-widest text-center hover:bg-mts-dark transition shadow-lg">
+                    <i class="fab fa-whatsapp mr-2"></i>Participar
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section: Modern Typography Focused -->
+    <main id="inicio" class="relative min-h-screen flex items-center pt-20 sm:pt-24 pb-12 lg:pb-0 engineering-grid overflow-hidden">
+        <div class="blob -top-20 -right-20"></div>
+        <div class="blob bottom-0 -left-20" style="background: radial-gradient(circle, rgba(0, 77, 44, 0.05) 0%, rgba(255, 255, 255, 0) 70%);"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            <!-- Text Content -->
+            <div class="lg:col-span-7 z-10" data-aos="fade-up" data-aos-duration="1000">
+                <div class="inline-block px-3 sm:px-4 py-1 rounded-full border border-mts-accent/20 text-mts-accent text-[9px] sm:text-[10px] font-bold uppercase tracking-widest mb-4 sm:mb-6">
+                    <span class="w-1.5 h-1.5 rounded-full bg-mts-green inline-block mr-2 animate-pulse"></span> Rumbo a la Gobernación
+                </div>
+                <h1 class="font-display font-black text-[2.75rem] sm:text-6xl md:text-7xl lg:text-8xl leading-[0.9] text-mts-dark mb-6 sm:mb-8">
+                    CONSTRUIR<br>
+                    <span class="text-gradient">COCHABAMBA</span>
+                </h1>
+                <p class="text-base sm:text-lg md:text-xl text-gray-500 max-w-xl leading-relaxed mb-8 sm:mb-10 font-light italic">
+                    "No buscamos administrar la crisis, buscamos <strong>diseñar</strong> el progreso con rigor técnico y corazón renovador."
+                </p>
+                <div class="flex flex-wrap gap-4 sm:gap-6">
+                    <a href="#propuestas" class="group relative px-7 sm:px-10 py-4 sm:py-5 bg-mts-accent text-white text-sm sm:text-base font-bold rounded-2xl overflow-hidden transition-all shadow-2xl hover:shadow-mts-accent/30">
+                        <span class="relative z-10">PROYECTO 2026</span>
+                        <div class="absolute inset-0 bg-mts-dark translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                    </a>
+                    <a href="#redes" class="flex items-center gap-3 sm:gap-4 px-4 sm:px-8 font-bold text-sm sm:text-base text-mts-green hover:text-mts-accent transition">
+                        <span class="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-mts-green/20 flex items-center justify-center">
+                            <i class="fab fa-tiktok"></i>
+                        </span>
+                        VER ANÁLISIS
+                    </a>
+                </div>
+            </div>
+
+            <!-- Visual / Image -->
+            <div class="lg:col-span-5 relative mt-8 lg:mt-0" data-aos="fade-left" data-aos-delay="200">
+                <div class="relative w-full max-w-sm mx-auto lg:max-w-none aspect-[4/5] overflow-hidden rounded-3xl sm:rounded-[40px] shadow-2xl">
+                    <img src="https://placehold.co/800x1000/004d2c/FFFFFF?text=ING.+MOSTAJO" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-1000" alt="Ing. Mostajo">
+                    <!-- Overlays -->
+                    <div class="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 p-5 sm:p-8 bg-white/10 backdrop-blur-xl rounded-2xl sm:rounded-3xl border border-white/20">
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <h4 class="text-white font-display font-bold text-xl sm:text-2xl uppercase tracking-tighter">MOSTAJO</h4>
+                                <p class="text-white/70 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest mt-1">Ingeniero Civil - UMSS</p>
+                            </div>
+                            <div class="text-white font-black text-2xl sm:text-4xl opacity-20">2026</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Floating Badge -->
+                <div class="absolute -top-3 -left-3 sm:-top-6 sm:-left-6 w-20 h-20 sm:w-28 sm:h-28 lg:w-32 lg:h-32 bg-mts-accent rounded-full flex flex-col items-center justify-center text-white transform -rotate-12 border-4 border-white shadow-xl z-20">
+                    <span class="text-[8px] sm:text-[10px] font-black tracking-widest">PERFIL</span>
+                    <span class="text-lg sm:text-2xl font-display font-black">X</span>
+                    <span class="text-[8px] sm:text-[10px] font-black tracking-widest uppercase">Renovador</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Stats / Trust Section -->
+    <section class="py-8 sm:py-12 border-y border-mts-accent/5 bg-white/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
+            <div class="text-center" data-aos="fade-up">
+                <span class="block text-2xl sm:text-3xl md:text-4xl font-display font-black text-mts-green tracking-tighter">6 AÑOS</span>
+                <span class="text-[9px] sm:text-[10px] font-bold text-gray-400 uppercase tracking-[0.15em] sm:tracking-[0.2em]">Gestión FUL-UMSS</span>
+            </div>
+            <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                <span class="block text-2xl sm:text-3xl md:text-4xl font-display font-black text-mts-accent tracking-tighter">INGENIERO</span>
+                <span class="text-[9px] sm:text-[10px] font-bold text-gray-400 uppercase tracking-[0.15em] sm:tracking-[0.2em]">Civil de Profesión</span>
+            </div>
+            <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                <span class="block text-2xl sm:text-3xl md:text-4xl font-display font-black text-mts-green tracking-tighter">8VO</span>
+                <span class="text-[9px] sm:text-[10px] font-bold text-gray-400 uppercase tracking-[0.15em] sm:tracking-[0.2em]">Candidato Habilitado</span>
+            </div>
+            <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+                <span class="block text-2xl sm:text-3xl md:text-4xl font-display font-black text-mts-accent tracking-tighter">100%</span>
+                <span class="text-[9px] sm:text-[10px] font-bold text-gray-400 uppercase tracking-[0.15em] sm:tracking-[0.2em]">Voto Renovador</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee / Ticker -->
+    <div class="bg-mts-green py-3.5 overflow-hidden relative z-20 border-y border-mts-accent/20">
+        <div class="animate-marquee whitespace-nowrap flex gap-16">
+            <span class="font-display font-black text-xl text-white/90 tracking-wider uppercase">COCHABAMBA MERECE MÁS ★</span>
+            <span class="font-display font-black text-xl text-mts-gold/70 tracking-wider uppercase">RENOVACIÓN REAL ★</span>
+            <span class="font-display font-black text-xl text-white/90 tracking-wider uppercase">INGENIERO CIVIL ★</span>
+            <span class="font-display font-black text-xl text-mts-gold/70 tracking-wider uppercase">VOZ DE LA JUVENTUD ★</span>
+            <span class="font-display font-black text-xl text-white/90 tracking-wider uppercase">MOVIMIENTO TERCER SISTEMA ★</span>
+            <span class="font-display font-black text-xl text-mts-gold/70 tracking-wider uppercase">GOBERNACIÓN 2026 ★</span>
+            <span class="font-display font-black text-xl text-white/90 tracking-wider uppercase">COCHABAMBA MERECE MÁS ★</span>
+            <span class="font-display font-black text-xl text-mts-gold/70 tracking-wider uppercase">RENOVACIÓN REAL ★</span>
+            <span class="font-display font-black text-xl text-white/90 tracking-wider uppercase">INGENIERO CIVIL ★</span>
+            <span class="font-display font-black text-xl text-mts-gold/70 tracking-wider uppercase">VOZ DE LA JUVENTUD ★</span>
+            <span class="font-display font-black text-xl text-white/90 tracking-wider uppercase">MOVIMIENTO TERCER SISTEMA ★</span>
+            <span class="font-display font-black text-xl text-mts-gold/70 tracking-wider uppercase">GOBERNACIÓN 2026 ★</span>
+        </div>
+    </div>
+
+    <!-- Trayectoria / Perfil Section: Text Grid -->
+    <section id="perfil" class="py-16 sm:py-24 lg:py-32 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <div data-aos="fade-right">
+                    <div class="hidden md:block text-mts-accent font-black text-[80px] lg:text-[120px] opacity-5 leading-none absolute -top-10 left-0 select-none">HISTORIA</div>
+                    <h2 class="font-display font-black text-3xl sm:text-4xl lg:text-5xl text-mts-green mb-6 sm:mb-8 leading-tight">
+                        DE LAS AULAS A LA <br>TRANSFORMACIÓN REGIONAL
+                    </h2>
+                    <div class="space-y-5 sm:space-y-6 text-gray-600 leading-relaxed font-light text-base sm:text-lg">
+                        <p>
+                            Nacido de la meritocracia universitaria, Mostajo forjó su liderazgo en la <strong>Universidad Mayor de San Simón</strong>. Como dirigente de la FUL entre 2010 y 2016, entendió que el liderazgo no se hereda, se construye bajo presión.
+                        </p>
+                        <p class="border-l-4 border-mts-accent pl-5 sm:pl-8 py-2 italic text-mts-dark font-medium">
+                            "Ser ingeniero me dio la métrica; ser dirigente me dio la empatía. Cochabamba necesita ambos para volver a ser el corazón de Bolivia."
+                        </p>
+                        <p>
+                            Hoy, representa al <strong>MTS</strong> bajo el liderazgo de Félix Patzi, posicionándose como la única alternativa técnica capaz de romper con los fracasos de las vertientes tradicionales.
+                        </p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3 sm:gap-4" data-aos="fade-left">
+                    <div class="aspect-square bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-sm flex flex-col justify-end card-hover transition-all">
+                        <i class="fas fa-microchip text-2xl sm:text-4xl text-mts-accent mb-auto"></i>
+                        <h4 class="font-bold text-mts-dark text-sm sm:text-base">Pensamiento Sistémico</h4>
+                        <p class="text-[10px] sm:text-xs text-gray-400 mt-1 sm:mt-2 tracking-tight">Soluciones integrales, no parches.</p>
+                    </div>
+                    <div class="aspect-square bg-mts-green rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-2xl flex flex-col justify-end translate-y-4 sm:translate-y-8 text-white card-hover transition-all">
+                        <i class="fas fa-university text-2xl sm:text-4xl text-mts-gold mb-auto"></i>
+                        <h4 class="font-bold text-sm sm:text-base">Base Universitaria</h4>
+                        <p class="text-[10px] sm:text-xs text-white/60 mt-1 sm:mt-2 tracking-tight">El motor del conocimiento.</p>
+                    </div>
+                    <div class="aspect-square bg-mts-accent rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-2xl flex flex-col justify-end text-white card-hover transition-all">
+                        <i class="fab fa-tiktok text-2xl sm:text-4xl text-white mb-auto"></i>
+                        <h4 class="font-bold text-sm sm:text-base">Voz Digital</h4>
+                        <p class="text-[10px] sm:text-xs text-white/60 mt-1 sm:mt-2 tracking-tight">Transparencia y análisis frontal.</p>
+                    </div>
+                    <div class="aspect-square bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-sm flex flex-col justify-end translate-y-4 sm:translate-y-8 card-hover transition-all">
+                        <i class="fas fa-drafting-compass text-2xl sm:text-4xl text-mts-green mb-auto"></i>
+                        <h4 class="font-bold text-mts-dark text-sm sm:text-base">Gestión Ética</h4>
+                        <p class="text-[10px] sm:text-xs text-gray-400 mt-1 sm:mt-2 tracking-tight">Ingeniería al servicio del pueblo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Propuestas Section: Large Grid Layout -->
+    <section id="propuestas" class="py-16 sm:py-24 lg:py-32 bg-mts-dark text-white engineering-grid" style="background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="mb-12 sm:mb-16 lg:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-8">
+                <div data-aos="fade-right">
+                    <span class="text-mts-gold text-[10px] font-black tracking-[0.3em] uppercase">El Plan Maestro</span>
+                    <h2 class="font-display font-black text-4xl sm:text-5xl lg:text-6xl mt-3 sm:mt-4 leading-tight">LOS 7 PILARES PARA<br>COCHABAMBA</h2>
+                </div>
+                <p class="text-gray-400 max-w-sm text-sm leading-relaxed" data-aos="fade-left">
+                    Una reorientación técnica integral de la Gobernación: transparencia, producción, medioambiente, infraestructura y soberanía política.
+                </p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+                <!-- 01: Gobernación Moderna -->
+                <div class="group bg-white/5 border border-white/10 p-6 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl lg:rounded-[40px] hover:bg-mts-green transition-all duration-500 overflow-hidden relative" data-aos="fade-up">
+                    <div class="absolute top-0 right-0 p-4 sm:p-8 text-6xl sm:text-8xl font-black text-white/5 group-hover:text-white/10 transition-colors">01</div>
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-mts-green/20 group-hover:bg-white/20 rounded-xl sm:rounded-2xl flex items-center justify-center mb-6 sm:mb-10 transition-all">
+                        <i class="fas fa-landmark text-xl sm:text-2xl text-mts-green group-hover:text-white"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl sm:text-2xl lg:text-3xl mb-3 sm:mb-4">GOBERNACIÓN MODERNA Y TRANSPARENTE</h3>
+                    <p class="text-gray-400 group-hover:text-white/80 leading-relaxed font-light text-sm sm:text-base">
+                        Cero tolerancia a la corrupción. Digitalización total de trámites, meritocracia en el servicio civil, presencia territorial y presupuestos participativos.
+                    </p>
+                </div>
+
+                <!-- 02: Revolución Productiva -->
+                <div class="group bg-white/5 border border-white/10 p-6 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl lg:rounded-[40px] hover:bg-mts-accent transition-all duration-500 overflow-hidden relative" data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute top-0 right-0 p-4 sm:p-8 text-6xl sm:text-8xl font-black text-white/5 group-hover:text-white/10 transition-colors">02</div>
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-mts-accent/20 group-hover:bg-white/20 rounded-xl sm:rounded-2xl flex items-center justify-center mb-6 sm:mb-10 transition-all">
+                        <i class="fas fa-tractor text-xl sm:text-2xl text-mts-gold group-hover:text-white"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl sm:text-2xl lg:text-3xl mb-3 sm:mb-4">REVOLUCIÓN PRODUCTIVA</h3>
+                    <p class="text-gray-400 group-hover:text-white/80 leading-relaxed font-light text-sm sm:text-base">
+                        Nueva política de la tierra: cooperativas mecanizadas, maquinaria comunitaria, centros de acopio y protección efectiva contra el contrabando. No al latifundio ni al minifundio.
+                    </p>
+                </div>
+
+                <!-- 03: Medio Ambiente -->
+                <div class="group bg-white/5 border border-white/10 p-6 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl lg:rounded-[40px] hover:bg-mts-green transition-all duration-500 overflow-hidden relative" data-aos="fade-up" data-aos-delay="200">
+                    <div class="absolute top-0 right-0 p-4 sm:p-8 text-6xl sm:text-8xl font-black text-white/5 group-hover:text-white/10 transition-colors">03</div>
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-mts-green/20 group-hover:bg-white/20 rounded-xl sm:rounded-2xl flex items-center justify-center mb-6 sm:mb-10 transition-all">
+                        <i class="fas fa-leaf text-xl sm:text-2xl text-mts-green group-hover:text-white"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl sm:text-2xl lg:text-3xl mb-3 sm:mb-4">PROTECCIÓN DEL MEDIO AMBIENTE</h3>
+                    <p class="text-gray-400 group-hover:text-white/80 leading-relaxed font-light text-sm sm:text-base">
+                        Plan de aire limpio, manejo moderno de residuos, protección estricta del Parque Tunari. Reforestación de cuencas y gestión eficiente del agua para consumo y riego.
+                    </p>
+                </div>
+
+                <!-- 04: Lucha contra Mafias -->
+                <div class="group bg-white/5 border border-white/10 p-6 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl lg:rounded-[40px] hover:bg-mts-accent transition-all duration-500 overflow-hidden relative" data-aos="fade-up" data-aos-delay="300">
+                    <div class="absolute top-0 right-0 p-4 sm:p-8 text-6xl sm:text-8xl font-black text-white/5 group-hover:text-white/10 transition-colors">04</div>
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-mts-accent/20 group-hover:bg-white/20 rounded-xl sm:rounded-2xl flex items-center justify-center mb-6 sm:mb-10 transition-all">
+                        <i class="fas fa-shield-alt text-xl sm:text-2xl text-mts-gold group-hover:text-white"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl sm:text-2xl lg:text-3xl mb-3 sm:mb-4">LUCHA CONTRA LAS MAFIAS</h3>
+                    <p class="text-gray-400 group-hover:text-white/80 leading-relaxed font-light text-sm sm:text-base">
+                        Combate frontal al saqueo minero, logias incendiarias, contrabando, poder bancario, monopolio mediático y narcotráfico. Sin pactos, sin miedo.
+                    </p>
+                </div>
+
+                <!-- 05: Infraestructura -->
+                <div class="group bg-white/5 border border-white/10 p-6 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl lg:rounded-[40px] hover:bg-mts-green transition-all duration-500 overflow-hidden relative" data-aos="fade-up" data-aos-delay="400">
+                    <div class="absolute top-0 right-0 p-4 sm:p-8 text-6xl sm:text-8xl font-black text-white/5 group-hover:text-white/10 transition-colors">05</div>
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-mts-green/20 group-hover:bg-white/20 rounded-xl sm:rounded-2xl flex items-center justify-center mb-6 sm:mb-10 transition-all">
+                        <i class="fas fa-road text-xl sm:text-2xl text-mts-green group-hover:text-white"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl sm:text-2xl lg:text-3xl mb-3 sm:mb-4">INFRAESTRUCTURA E INTEGRACIÓN</h3>
+                    <p class="text-gray-400 group-hover:text-white/80 leading-relaxed font-light text-sm sm:text-base">
+                        Conclusión de la ruta Cochabamba–La Paz (Vinto–Sacambaya), eje hacia la Amazonía, electrificación total de comunidades y sistemas de agua y riego tecnificado.
+                    </p>
+                </div>
+
+                <!-- 06: Soberanía Política -->
+                <div class="group bg-white/5 border border-white/10 p-6 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl lg:rounded-[40px] hover:bg-mts-accent transition-all duration-500 overflow-hidden relative" data-aos="fade-up" data-aos-delay="500">
+                    <div class="absolute top-0 right-0 p-4 sm:p-8 text-6xl sm:text-8xl font-black text-white/5 group-hover:text-white/10 transition-colors">06</div>
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-mts-accent/20 group-hover:bg-white/20 rounded-xl sm:rounded-2xl flex items-center justify-center mb-6 sm:mb-10 transition-all">
+                        <i class="fas fa-fist-raised text-xl sm:text-2xl text-mts-gold group-hover:text-white"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl sm:text-2xl lg:text-3xl mb-3 sm:mb-4">INDEPENDENCIA Y SOBERANÍA</h3>
+                    <p class="text-gray-400 group-hover:text-white/80 leading-relaxed font-light text-sm sm:text-base">
+                        Tercera vía real: rechazo total a roscas y reciclados políticos. Alianza popular soberana e independiente y defensa de los recursos estratégicos de Cochabamba.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Pilar 07: Destacado a ancho completo -->
+            <div class="mt-4 sm:mt-6 lg:mt-8 group bg-gradient-to-r from-mts-gold/10 to-mts-accent/5 border border-mts-gold/20 p-6 sm:p-8 md:p-12 rounded-2xl sm:rounded-3xl lg:rounded-[40px] hover:from-mts-gold/20 hover:to-mts-accent/10 transition-all duration-500 overflow-hidden relative" data-aos="fade-up" data-aos-delay="600">
+                <div class="absolute top-0 right-0 p-4 sm:p-8 text-6xl sm:text-8xl font-black text-white/5">07</div>
+                <div class="flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-8">
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-mts-gold/20 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-heartbeat text-xl sm:text-2xl text-mts-gold"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-display font-bold text-xl sm:text-2xl lg:text-3xl mb-2 sm:mb-3">SALUD Y EDUCACIÓN TÉCNICA</h3>
+                        <p class="text-gray-400 leading-relaxed font-light max-w-3xl text-sm sm:text-base">
+                            Fortalecimiento real de hospitales de segundo nivel en provincias. Educación técnica vinculada a la producción regional con becas para jóvenes rurales y urbanos. Formación para el trabajo, no para el desempleo.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Analysis Section: TikTok Style -->
+    <section id="redes" class="py-16 sm:py-24 lg:py-32 bg-mts-surface">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+                <div class="lg:col-span-5 text-center lg:text-left" data-aos="fade-right">
+                    <h2 class="font-display font-black text-3xl sm:text-4xl lg:text-5xl text-mts-dark mb-4 sm:mb-6">TIKTOK POR LA VERDAD</h2>
+                    <p class="text-gray-500 text-base sm:text-lg leading-relaxed mb-6 sm:mb-8">
+                        Mostajo ha democratizado el análisis político. Con millones de vistas, sus videos exponen la realidad nacional de forma técnica y directa. 
+                    </p>
+                    <div class="flex gap-4 justify-center lg:justify-start">
+                        <a href="#" class="w-12 h-12 sm:w-14 sm:h-14 bg-black text-white rounded-full flex items-center justify-center hover:scale-110 transition"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" class="w-12 h-12 sm:w-14 sm:h-14 bg-red-600 text-white rounded-full flex items-center justify-center hover:scale-110 transition"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="w-12 h-12 sm:w-14 sm:h-14 bg-blue-600 text-white rounded-full flex items-center justify-center hover:scale-110 transition"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                <div class="lg:col-span-1"></div>
+                <!-- Mockup/Device -->
+                <div class="lg:col-span-6 relative flex justify-center" data-aos="zoom-in">
+                    <div class="w-[220px] h-[460px] sm:w-[260px] sm:h-[540px] md:w-[280px] md:h-[580px] bg-black rounded-[40px] sm:rounded-[50px] border-[6px] sm:border-[8px] border-gray-800 shadow-[20px_20px_60px_rgba(0,0,0,0.1)] relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=1974&auto=format&fit=crop" class="w-full h-full object-cover opacity-80" alt="TikTok Preview">
+                        <div class="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-black/80 to-transparent">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 rounded-full border border-white p-0.5">
+                                    <div class="w-full h-full bg-mts-green rounded-full"></div>
+                                </div>
+                                <span class="text-white text-xs font-bold">@IngMostajo</span>
+                            </div>
+                            <p class="text-white text-[10px] mb-4">Análisis de los presupuestos 2026. Cochabamba merece más. #Renovacion #Ingenieria</p>
+                            <div class="flex gap-4 text-white text-[8px] font-bold">
+                                <span><i class="fas fa-heart text-red-500 mr-1"></i> 25.4K</span>
+                                <span><i class="fas fa-comment mr-1"></i> 1.2K</span>
+                                <span><i class="fas fa-share mr-1"></i> 856</span>
+                            </div>
+                        </div>
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white/20 backdrop-blur rounded-full flex items-center justify-center border border-white/30 cursor-pointer hover:scale-110 transition">
+                            <i class="fas fa-play text-white text-2xl ml-1"></i>
+                        </div>
+                    </div>
+                    <!-- Accents -->
+                    <div class="absolute -z-10 w-full h-full bg-mts-accent/10 blur-3xl rounded-full"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section id="unete" class="py-12 sm:py-16 lg:py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="bg-mts-green rounded-3xl sm:rounded-[40px] lg:rounded-[60px] p-6 sm:p-10 lg:p-24 relative overflow-hidden shadow-2xl">
+                <!-- Background Pattern -->
+                <div class="absolute inset-0 opacity-10 engineering-grid"></div>
+                
+                <div class="relative z-10 grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
+                    <div class="text-white text-center lg:text-left" data-aos="fade-up">
+                        <h2 class="font-display font-black text-3xl sm:text-4xl lg:text-5xl mb-4 sm:mb-6">ÚNETE AL CAMBIO <br>TÉCNICO</h2>
+                        <p class="text-white/70 text-base sm:text-lg mb-6 sm:mb-10 max-w-sm mx-auto lg:mx-0">
+                            Este proyecto no pertenece a un caudillo, pertenece a cada bachiller, profesional y emprendedor de Cochabamba.
+                        </p>
+                        <ul class="space-y-3 sm:space-y-4 inline-block text-left">
+                            <li class="flex items-center gap-3 text-sm font-bold tracking-wide">
+                                <i class="fas fa-check-circle text-mts-gold"></i> DEFENSA DEL VOTO
+                            </li>
+                            <li class="flex items-center gap-3 text-sm font-bold tracking-wide">
+                                <i class="fas fa-check-circle text-mts-gold"></i> EQUIPO DE FISCALIZACIÓN
+                            </li>
+                            <li class="flex items-center gap-3 text-sm font-bold tracking-wide">
+                                <i class="fas fa-check-circle text-mts-gold"></i> BRIGADAS DE ACCIÓN SOCIAL
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-6 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl lg:rounded-[40px] shadow-2xl" data-aos="fade-left">
+                        <h4 class="font-display font-black text-xl sm:text-2xl text-mts-dark mb-4 sm:mb-6">FORMULARIO DE CONTACTO</h4>
+                        <form class="space-y-3 sm:space-y-4">
+                            <input type="text" placeholder="Tu Nombre" class="w-full px-4 sm:px-6 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl bg-gray-100 border-none outline-none focus:ring-2 focus:ring-mts-accent transition text-sm sm:text-base">
+                            <input type="tel" placeholder="N° WhatsApp" class="w-full px-4 sm:px-6 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl bg-gray-100 border-none outline-none focus:ring-2 focus:ring-mts-accent transition text-sm sm:text-base">
+                            <select class="w-full px-4 sm:px-6 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl bg-gray-100 border-none outline-none focus:ring-2 focus:ring-mts-accent transition text-gray-400 text-sm sm:text-base">
+                                <option>Zona de Residencia</option>
+                                <option>Valle Alto</option>
+                                <option>Cercado</option>
+                                <option>Sacaba</option>
+                                <option>Quillacollo</option>
+                                <option>Sivingani</option>
+                            </select>
+                            <button class="w-full bg-mts-accent text-white font-black py-4 sm:py-5 rounded-xl sm:rounded-2xl hover:bg-mts-dark transition-all transform hover:-translate-y-1 shadow-xl text-sm sm:text-base">
+                                ENVIAR AHORA
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer: Minimal/Architectural -->
+    <footer class="pt-12 sm:pt-16 lg:pt-24 pb-8 sm:pb-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12 pb-10 sm:pb-16 border-b border-gray-100">
+                <div class="sm:col-span-2">
+                    <div class="flex items-center gap-3 mb-4 sm:mb-6">
+                        <div class="w-10 h-10 bg-mts-green rounded-lg flex items-center justify-center text-white text-xs font-bold">MTS</div>
+                        <span class="font-display font-black text-xl sm:text-2xl text-mts-dark uppercase">Mostajo 2026</span>
+                    </div>
+                    <p class="text-gray-400 text-sm max-w-xs leading-relaxed">
+                        Un proyecto político nacido del conocimiento científico y la sensibilidad social para el departamento más dinámico de Bolivia.
+                    </p>
+                </div>
+                <div>
+                    <h5 class="font-black text-[10px] tracking-[0.3em] uppercase mb-4 sm:mb-6 text-mts-accent">Atajos</h5>
+                    <ul class="space-y-3 text-sm font-bold text-gray-500 uppercase tracking-widest">
+                        <li><a href="#" class="hover:text-mts-green transition">Votar Mostajo</a></li>
+                        <li><a href="#" class="hover:text-mts-green transition">Plan de Gobierno</a></li>
+                        <li><a href="#" class="hover:text-mts-green transition">Sedes de Campaña</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-black text-[10px] tracking-[0.3em] uppercase mb-4 sm:mb-6 text-mts-accent">Oficial</h5>
+                    <ul class="space-y-3 text-sm font-bold text-gray-500 uppercase tracking-widest">
+                        <li><a href="#" class="hover:text-mts-green transition">MTS Nacional</a></li>
+                        <li><a href="#" class="hover:text-mts-green transition">Dr. Patzi Liderazgo</a></li>
+                        <li><a href="#" class="hover:text-mts-green transition">Prensa</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-6 sm:pt-8 flex flex-col md:flex-row justify-between items-center gap-3 sm:gap-4 text-[9px] sm:text-[10px] font-black tracking-widest text-gray-300 uppercase text-center md:text-left">
+                <p>© 2026 MOSTAJO GOBERNADOR - TODOS LOS DERECHOS RESERVADOS</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-mts-accent">Privacidad</a>
+                    <a href="#" class="hover:text-mts-accent">Transparencia</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, duration: 800 });
+        
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+            if (mobileMenu.classList.contains('open')) {
+                menuIcon.className = 'fas fa-xmark';
+            } else {
+                menuIcon.className = 'fas fa-bars-staggered';
+            }
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                menuIcon.className = 'fas fa-bars-staggered';
+            });
+        });
+
+        // Smooth scroll for all anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Navbar effect on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 80) {
+                nav.style.boxShadow = '0 4px 20px rgba(0,0,0,0.06)';
+            } else {
+                nav.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
